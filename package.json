@@ -1,0 +1,44 @@
+{
+  "name": "shogi-kifucho",
+  "private": true,
+  "license": "GPL-3.0-or-later",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k \"npm run dev:api\" \"npm run dev:web\"",
+    "dev:api": "tsx server/dev.ts",
+    "dev:web": "vite --config web/vite.config.ts",
+    "build": "tsc -b web/tsconfig.json && vite build --config web/vite.config.ts",
+    "create-user": "tsx scripts/create-user.ts",
+    "lint": "oxlint -c web/.oxlintrc.json web",
+    "typecheck": "tsc -p tsconfig.json && tsc -b web/tsconfig.json"
+  },
+  "dependencies": {
+    "@mantine/core": "^9.8.0",
+    "@mantine/hooks": "^9.8.0",
+    "@neondatabase/serverless": "^1.0.2",
+    "@tanstack/react-query": "^5.107.1",
+    "bcryptjs": "^3.0.3",
+    "encoding-japanese": "^2.5.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router": "^8.5.1",
+    "shogiground": "^0.10.3",
+    "shogiops": "^0.22.0",
+    "tsshogi": "^2.3.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "concurrently": "^9.2.1",
+    "oxlint": "^1.90.0",
+    "postcss": "^8.5.32",
+    "postcss-preset-mantine": "^1.18.0",
+    "postcss-simple-vars": "^7.0.1",
+    "rollup-plugin-license": "^3.7.2",
+    "tsx": "^4.20.6",
+    "typescript": "~7.0.2",
+    "vite": "^8.3.6"
+  }
+}

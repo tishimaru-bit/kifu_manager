@@ -1,0 +1,27 @@
+.root {
+  container-type: inline-size;
+  width: 100%;
+  max-width: 480px;
+  --sg-hand-piece-size: calc(100cqw / 9);
+}
+
+.hand {
+  width: calc(100% - 16px);
+  height: calc(100cqw / 9 + 8px);
+}
+
+.boardFrame {
+  width: calc(100% - 16px);
+  aspect-ratio: 11 / 12;
+  margin: 16px 0 6px;
+}
+
+/* 入力時は、駒をつまむ操作でページがスクロール・拡大しないようにする */
+.interactive .hand,
+.interactive .boardFrame {
+  touch-action: none;
+}
+
+.label {
+  margin: 4px 0;
+}
