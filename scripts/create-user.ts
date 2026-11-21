@@ -1,6 +1,6 @@
-import bcrypt from 'bcryptjs'
 import { sql } from '../server/db.ts'
 import { loadEnv } from '../server/env.ts'
+import { hashPassword } from '../server/password.ts'
 
 loadEnv()
 
@@ -13,7 +13,7 @@ if (!email.includes('@') || !password || password.length < 8) {
   process.exit(1)
 }
 
-const passwordHash = await bcrypt.hash(password, 12)
+const passwordHash = await hashPassword(password)
 const db = sql()
 const rows = await db`
   INSERT INTO users (email, password_hash)

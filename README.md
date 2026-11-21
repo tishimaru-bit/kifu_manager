@@ -48,10 +48,10 @@ npm run build
 ## デプロイ
 
 このリポジトリ（`tishimaru-bit/shogi-kifucho`）を Vercel に接続し、デプロイする。データは Singapore の Neon を使用。
-`DATABASE_URL` と `SESSION_SECRET` は、Vercel の環境変数で対象を Production だけにする。Preview と Development には設定しない。手元の `.env` は、その Production と同じ値でよい。
+`DATABASE_URL` と `SESSION_SECRET` は、Vercel の環境変数で対象を Production だけにする。
+Preview と Development には設定しない。手元の `.env` は、その Production と同じ値でよい。
 Vercel の Settings で Git Fork Protection を有効にする。有効にすると、fork からのプレビューデプロイには環境変数が渡されない。
 ビルドは直下の `npm run build`、出力先は `web/dist`。プロジェクトのルートはリポジトリ直下。
-既に `db/schema.sql` を実行済みのデータベースには、`login_attempts` と `sessions` の CREATE TABLE と CREATE INDEX を追加で実行する。セッションはデータベースに保存する。この変更のあと、公開中のログインは一度入り直す。
 
 ## ライセンス
 

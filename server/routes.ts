@@ -1,5 +1,5 @@
-import bcrypt from 'bcryptjs'
 import { iso, isoOrNull, sql } from './db.ts'
+import { hashPassword, verifyPassword } from './password.ts'
 import { parseKifuInput } from './kifuInput.ts'
 import { clearSessionCookie, createSession, readSession, sessionCookie } from './session.ts'
 
@@ -8,7 +8,7 @@ const maxPasswordLength = 128
 const maxAttemptsPerEmail = 8
 const maxAttemptsPerIp = 30
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
-const unknownUserHash = bcrypt.hash('kifu-manager-unknown-user', 12)
+const unknownUserHash = hashPassword('kifu-manager-unknown-user')
 
 export interface Result {
   status: number
@@ -53,7 +53,7 @@ export async function login(method: string, body: unknown, ip: string): Promise<
   const rows = await db`SELECT id, password_hash FROM users WHERE email = ${email} LIMIT 1`
   const user = rows[0] as { id: string; password_hash: string } | undefined
   const hash = user?.password_hash ?? (await unknownUserHash)
-  const matched = await bcrypt.compare(password, hash)
+  const matched = await verifyPassword(password, hash)
   if (!user || !matched) {
     await db`INSERT INTO login_attempts (email, ip) VALUES (${email}, ${address})`
     return { status: 401, body: { message: 'メールアドレスまたはパスワードが正しくありません。' } }
